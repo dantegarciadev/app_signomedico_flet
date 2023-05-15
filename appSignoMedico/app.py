@@ -8,16 +8,37 @@ def main(page: Page):
     #cambiar el color de fondo 
     #page.bgcolor = '#9f2a36' usando un color en hexagesimal
     #page.bgcolor = ft.colors.AMBER_400   usando un color desde el modulo colors.
-    txt_number =  TextField(value ='0', text_align='right', width=100, bgcolor='#9f2a36', color= '#e7eaff' )
+    
+    
     
     ingresarValor = TextField(label='Ingrese un valor ')
+    txt_number = TextField(
+        value='0', # Valor inicial
+        text_align='right', # Alinear el texto a la derecha
+        width=100, # Establecer el ancho del campo
+        bgcolor='#9f2a36', # Establecer el color de fondo usando hexadecimal
+        color='#e7eaff' # Establecer el color del texto usando hexadecimal
+    )
+    
+    def actClick(event):
+        # Intentar convertir el valor ingresado a un entero
+        try:
+            number = int(ingresarValor.value)
+            # Actualizar el campo de número con el valor ingresado
+            txt_number.value = f'{number}'
+        # Si ocurre un error, mostrar un mensaje de error y pedir un valor válido
+        except ValueError:
+            print('Error: el valor ingresado no es un número válido.')
+            print('Por favor, ingrese un número entero.')
     
     row2 = Row(controls=[
         ingresarValor,
-        ElevatedButton(text='definir', on_click=int(txt_number.value)),
+        ElevatedButton(text='definir', on_click=int(actClick))
     ],
                alignment='center'
                )
+    
+    
     page.add(row2)
     #dentro de la funcion mail creamos otra funcion para sumar restar
     def minus_click(event):
