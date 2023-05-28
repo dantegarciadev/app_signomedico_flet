@@ -17,7 +17,7 @@ def main(page: ft.Page):
         #guardar el archivo en un dataframe
         if e.files:
             file = e.files[0] # Asumir que solo hay un archivo seleccionado
-            meplife = pd.read_excel(file.path, engine='xlrd') # Leer el archivo como un dataframe de pandas
+            meplife = pd.read_excel(file.path) # Leer el archivo como un dataframe de pandas
             print(meplife) # Imprimir el dataframe para verificar
             
              # Agregar el siguiente código para mostrar los primeros registros en la app
@@ -50,4 +50,4 @@ def main(page: ft.Page):
     )
     
 
-ft.app(target=main)
+ft.app(target=main, view =ft.WEB_BROWSER)
