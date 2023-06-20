@@ -2,12 +2,17 @@ import flet as ft
 from flet import IconButton, Page, Row, TextField, icons, colors, Text, ElevatedButton, DataTable
 import pandas as pd
 import numpy as np
+import xlrd
+import openpyxl
 
 
 def main(page: ft.Page):
     page.title = 'Convenios SignoMedico'
     page.vertical_alignment = 'center'
-    
+    page.bgcolor= '#DBDBDB'
+    table = ft.DataTable() # Crear un widget de tabla vacío
+
+
     def pick_files_result(e: ft.FilePickerResultEvent):
         selected_files.value = (
             ", ".join(map(lambda f: f.name, e.files)) if e.files else "Cancelled!"
@@ -17,17 +22,13 @@ def main(page: ft.Page):
         #guardar el archivo en un dataframe
         if e.files:
             file = e.files[0] # Asumir que solo hay un archivo seleccionado
-            meplife = pd.read_excel(file.path) # Leer el archivo como un dataframe de pandas
-            print(meplife) # Imprimir el dataframe para verificar
+            meplife = pd.read_excel(file.path, engine='openpyxl') # Leer el archivo como un dataframe de pandas
             
              # Agregar el siguiente código para mostrar los primeros registros en la app
             table.data= meplife.head().to_dict('records') # Convertir las primeras filas del dataframe en una lista de diccionarios
-            table.update()
 
     pick_files_dialog = ft.FilePicker(on_result=pick_files_result)
     selected_files = ft.Text()
-    table = ft.DataTable() # Crear un widget de tabla vacío
-    
 
     page.overlay.append(pick_files_dialog)
 
@@ -38,16 +39,16 @@ def main(page: ft.Page):
                     "Pick files",
                     icon=ft.icons.UPLOAD_FILE,
                     on_click=lambda _: pick_files_dialog.pick_files(
-                        allowed_extensions=['csv','txt','xls','xslx'],
+                        allowed_extensions=['csv','txt','xls','xlsx'],
                         allow_multiple=False
                     ),
                 ),
                 selected_files,
             ],
-            alignment='center'
+            alignment=ft.MainAxisAlignment.CENTER
         ),
         table # Agregar la tabla a la página
     )
     
 
-ft.app(target=main, view =ft.WEB_BROWSER)
+ft.app(target=main)
