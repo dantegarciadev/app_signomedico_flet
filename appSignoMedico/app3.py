@@ -23,12 +23,17 @@ def main(page: ft.Page):
         if e.files:
             file = e.files[0] # Asumir que solo hay un archivo seleccionado
             meplife = pd.read_excel(file.path, engine='openpyxl') # Leer el archivo como un dataframe de pandas
+            # # Imprimir el dataframe para verificar
             
              # Agregar el siguiente código para mostrar los primeros registros en la app
-            table.data= meplife.head().to_dict('records') # Convertir las primeras filas del dataframe en una lista de diccionarios
+            table.data= meplife.head(5).to_dict('records') # Convertir las primeras filas del dataframe en una lista de diccionarios
+            table.update()
+            print(table)
+            
 
     pick_files_dialog = ft.FilePicker(on_result=pick_files_result)
     selected_files = ft.Text()
+    table = ft.DataTable() # Crear un widget de tabla vacío
 
     page.overlay.append(pick_files_dialog)
 
@@ -36,11 +41,12 @@ def main(page: ft.Page):
         ft.Row(
             [
                 ft.ElevatedButton(
-                    "Pick files",
+                    "Subir Archivo",
                     icon=ft.icons.UPLOAD_FILE,
                     on_click=lambda _: pick_files_dialog.pick_files(
                         allowed_extensions=['csv','txt','xls','xlsx'],
-                        allow_multiple=False
+                        allow_multiple=False,
+                        dialog_title='buscar archivo'
                     ),
                 ),
                 selected_files,
@@ -48,6 +54,7 @@ def main(page: ft.Page):
             alignment=ft.MainAxisAlignment.CENTER
         ),
         table # Agregar la tabla a la página
+        
     )
     
 
