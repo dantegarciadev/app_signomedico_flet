@@ -18,10 +18,10 @@ def main(page: ft.Page):
         if e.files:
             file = e.files[0] # Asumir que solo hay un archivo seleccionado
             meplife = pd.read_excel(file.path, engine='openpyxl') # Leer el archivo como un dataframe de pandas
-            # # Imprimir el dataframe para verificar
+            #Imprimir el dataframe para verificar
             
              # Agregar el siguiente código para mostrar los primeros registros en la app
-            table.data= meplife.head(5).to_dict('records') # Convertir las primeras filas del dataframe en una lista de diccionarios
+            table = meplife.head(5).to_dict('records') # Convertir las primeras filas del dataframe en una lista de diccionarios
             table.update()
             print(table)
             
