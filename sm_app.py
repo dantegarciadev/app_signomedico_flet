@@ -15,29 +15,39 @@ def main(page: Page):
             colors=["#111827", "#1f2937"],
         ),
         border_radius=30,
-        #padding 
+        padding = padding.only(top=15,left=15),
         content=Column(
             controls=[
                 Container(
                     content=ResponsiveRow(
+                        alignment="spaceBetween",
                         controls=[
                             Text(
-                                'Dashboard',
+                                "Signo Medico",
                                 col={"xs": 6},
                                 no_wrap=True, #se setea a verdadero asi se puede crear el efecto slider despues
                                 size=20,
-                                weight="bold",
-                                
+                                weight="bold", 
+                                color= "#ffffff",
                             ),
                             Container(
                                 col={"xs":1},
                                 content=Text(
                                     'ⓘ',
                                     weight='bold', no_wrap=True,
+                                    color= "#ffffff",
                                 ),
                             ),
                         ]
                     )
+                ),
+                Container(padding=padding.only(top=20)),
+                Text(
+                    'CATEGORIES',
+                    size=12,
+                    color="white60",
+                    no_wrap=True,
+                    
                 )
             ]
             

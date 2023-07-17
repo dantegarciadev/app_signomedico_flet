@@ -26,15 +26,15 @@ def main(page: ft.Page):
         selected_files.update()
         file = e.files[0] # Asumir que solo hay un archivo seleccionado
         df_file = pd.read_excel(file.path, engine='openyxl') # Leer el archivo como un dataframe de pandas
+        pick_files_dialog = ft.FilePicker(on_result=pick_files_result)
+        selected_files = ft.Text()
+        page.overlay.append(pick_files_dialog)
+        datatable = ft.DataTable(
+            columns=headers(df_file),
+            rows=rows(df_file))  
 
 
 
-    pick_files_dialog = ft.FilePicker(on_result=pick_files_result)
-    selected_files = ft.Text()
-    page.overlay.append(pick_files_dialog)
-    datatable = ft.DataTable(
-        columns=headers(df_file),
-        rows=rows(df_file))  
 
     page.add(
         ft.Row(
