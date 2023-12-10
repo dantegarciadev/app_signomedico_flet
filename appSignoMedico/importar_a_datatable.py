@@ -12,7 +12,7 @@ def main(page: ft.Page):
     page.scroll ='always'
     #conseguir el excel primero
     #dframe = ExcelDataTable(r'C:\Users\zickd\Downloads\UOETSYLRA JUNIO.xlsx', engine='openpyxl')
-    dframe = pd.read_excel(r'C:\Users\zickd\Downloads\capitasagosto.xlsx', engine='openpyxl')
+    dframe = pd.read_excel(r'C:\Users\zickd\Downloads\capitasdiciembre.xlsx', engine='openpyxl')
     #mostrar el nombre del archivo
     myexcel = DataFrame(dframe)
     myexcel = myexcel.datatable
